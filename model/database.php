@@ -175,7 +175,8 @@ class Database
 $c = new Database();
 
 // $c->insertIntoUserTable("ahmad.96@gmail.com","123456","ahmad","alawneh","0787293944","admin"); // Done
-//$c->insertIntoUserAddressTable(2,"amman","azzarqa","abc","00962","alrusifya","0787293944"); // Done
+ $c->insertIntoUserTable("ahmad.96@gmail.com","123456","rama","jaradat","0787293944","admin"); // Done
+$c->insertIntoUserAddressTable(3,"amman","azzarqa","abc","00962","alrusifya","0787293944"); // Done
 
 // print_r($c->showData("users")); // Done
 // print_r($c->getById(1,"users")); //Done
