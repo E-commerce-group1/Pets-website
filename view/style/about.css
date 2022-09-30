@@ -1,0 +1,171 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+#about{
+    padding-top: 50px;
+    padding-bottom: 50px;
+    /* color: #f86f4d; */
+    color: #555;
+}
+
+
+.about-content{
+    padding-top: 20px;
+    font-size: 24px;
+}
+/* banner image */
+#bannerimage {
+    width: 100%;
+    height: 255px;
+    background-color: #f86f4d;
+    background-position: center;
+    /* background-repeat:repeat-x; */
+  }
+
+  #bannerimage .hero-text {
+    width: 100%;
+    height: 40vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   }
+   #bannerimage .hero-text h1 {
+    color: #FFF;
+    font-size: 44px;
+   }
+
+   /* meet out team */
+
+   .title-box{
+    text-align: center;
+    margin: 100px auto 50px;
+   }
+
+   .title-box p{
+    margin-top: 10px;
+    line-height:24px ;
+    font-size: 24px;
+   }
+
+   .profile-box{
+    width: 240px;
+    height: 240px;
+    background: #FFF;
+    border-radius: 4px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 4px 4px   #f86f4d;
+    padding: 20px;
+    position: relative;
+    transition: background 0.5s;
+   }
+
+   .profile-box img{
+    width: 100px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    border-radius: 4px;
+    transition: 0.5s;
+
+   }
+   .profile-box h4 {
+    margin-top: 20px;
+    margin-bottom: 5px;
+    color:#000;
+   }
+   small{
+    color: #555;
+   }
+   .social-box{
+    margin: 20px auto 10px;
+    text-align: center;
+    border-radius: 3px;
+   }
+
+   .social-box .fa{
+    margin: 10px;
+    background: #FFF;
+    cursor: pointer;
+   }
+
+   .profile-box p{
+    text-align: center;
+    line-height: 24px;
+    color: #555;
+   }
+
+   .team-row{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 85%;
+    margin: auto;
+   }
+
+   .profile-box img:hover{
+    width: 210px;
+   }
+
+   .profile-box:hover{
+    background-color: #f86f4d;
+   }
+
+   .profile-box:hover h4{
+color: #fff; 
+  }
+
+  .profile-box:hover p{
+    color: #efefef; 
+      }
+
+      .profile-box:hover small{
+        color: #efefef; 
+          }
+
+.profile-box:hover .social-box{
+background: #FFF;
+ }
+
+.profile-box:hover .social-box .fa{
+color: #f86f4d;  }
+
+@media(max-width:1023px){
+.team-row {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 50%;
+    margin-left: 50px;
+}
+}
+
+
+/* logo slider */
+
+@keyframes scroll{
+    0%{
+        transform: translateX(0);
+    }
+    100%{
+        transform: translateX(calc(-250px *7));
+    }
+}
+.slider{
+    height: 100px;
+    margin-top: 50px;
+    /* margin: auto; */
+    overflow: hidden;
+    position: relative;
+    width: auto;
+
+}
+.slider .slide-track{
+    animation: scroll 40s linear infinite;
+    display: flex;
+    width: calc(250px * 14);
+}
+
+.slider .slide{
+    height: 100px;
+    width: 250px;
+
+}
