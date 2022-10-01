@@ -1,99 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- adding the sign in with google min 11 video -->
-    <meta name="google-signin-client_id"
-        content="532602812897-vom2g5pl1anogecntne2u29b6cnbvc3b.apps.googleusercontent.com" />
+    <meta
+      name="google-signin-client_id"
+      content="532602812897-vom2g5pl1anogecntne2u29b6cnbvc3b.apps.googleusercontent.com"
+    />
     <title>Login/Register</title>
-    <link rel="stylesheet" href="../view/style/login.css" type="text/css" media="all" />
-</head>
+    <link
+      rel="stylesheet"
+      href="../view/style/login.css"
+      type="text/css"
+      media="all"
+    />
+  </head>
 
-<body>
-    <header style="background-color: gray; width: 100%;">
-        <!-- id to get the anchor tag here we need it in the nav -->
-        <h2>Navigation Bar</h2>
+  <body>
+    <header style="background-color: gray; width: 100%">
+      <!-- id to get the anchor tag here we need it in the nav -->
+      <h2>Navigation Bar</h2>
     </header>
 
     <div class="container" id="container">
-        <div class="form-container sign-up-container">
-            <form id="form-signin" action="../model/login.php" method="post">
-                <h1>Create Account</h1>
-                <div></div>
-                <input name="email" type="email" placeholder="Email" required />
-                <div class="first-last">
-                    <input name="firstname" class="res-input" style="width:138px;" type="text" placeholder="first name"
-                        required />
-                    <input name="lastname" class="res-input2" style="width:139px;" type="text" placeholder="last name"
-                        required />
-                </div>
-                <input name="password" type="password" placeholder="Password" required />
-                <input name="mobile" type="tel" placeholder="mobile number" required />
-                <input name="address1" type="text" placeholder="address line 1" required />
-                <input name="address2" type="text" placeholder="address line 2" />
-                <div class="country-city">
-                    <input name="country" class="res-input" style="width:138px;" type="text" placeholder="country"
-                        required />
-                    <input name="city" class="res-input2" style="width:139px;" type="text" placeholder="city"
-                        required />
-                </div>
-                <input name="postalcode" type="text" placeholder="postal code" required />
+      <div class="form-container sign-up-container">
+        <form id="form-signin" action="../model/login.php" method="post">
+          <h1>Create Account</h1>
+          <div></div>
+          <input name="email" type="email" placeholder="Email" required />
+          <div class="first-last">
+            <input
+              name="firstname"
+              class="res-input"
+              style="width: 138px"
+              type="text"
+              placeholder="first name"
+              required
+            />
+            <input
+              name="lastname"
+              class="res-input2"
+              style="width: 139px"
+              type="text"
+              placeholder="last name"
+              required
+            />
+          </div>
+          <input
+            name="password"
+            type="password"
+            placeholder="Password"
+            required
+          />
+          <input
+            name="mobile"
+            type="tel"
+            placeholder="mobile number"
+            required
+          />
+          <input
+            name="address1"
+            type="text"
+            placeholder="address line 1"
+            required
+          />
+          <input name="address2" type="text" placeholder="address line 2" />
+          <div class="country-city">
+            <input
+              name="country"
+              class="res-input"
+              style="width: 138px"
+              type="text"
+              placeholder="country"
+              required
+            />
+            <input
+              name="city"
+              class="res-input2"
+              style="width: 139px"
+              type="text"
+              placeholder="city"
+              required
+            />
+          </div>
+          <input
+            name="postalcode"
+            type="text"
+            placeholder="postal code"
+            required
+          />
 
-                <button type="submit" name="signup"
-                    style="background-color: #5c5d5b; cursor: pointer; border-color: white">
-                    Sign Up
-                </button>
-            </form>
+          <button
+            type="submit"
+            name="signup"
+            style="
+              background-color: #5c5d5b;
+              cursor: pointer;
+              border-color: white;
+            "
+          >
+            Sign Up
+          </button>
+        </form>
+      </div>
+      <div class="form-container sign-in-container">
+        <form action="../model/login.php" method="POST">
+          <h1>Sign in</h1>
+
+          <span style="font-weight: bold">or use your account</span>
+          <input
+            name="email"
+            id="email"
+            type="email"
+            placeholder="Email"
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+            oninvalid="this.setCustomValidity('email must contain @ and . ')"
+            oninput="this.setCustomValidity('')"
+          />
+          <input
+            name="password"
+            id="password"
+            type="password"
+            placeholder="Password"
+            oninvalid="this.setCustomValidity('password must consist at least 8 characters at least 1 uppercase and 1 lowecase and 1 special cahracter and 1 number')"
+            oninput="this.setCustomValidity('')"
+          />
+          <a href="#">Forgot your password?</a>
+          <button
+            name="signin"
+            style="
+              background-color: #5c5d5b;
+              cursor: pointer;
+              border-color: white;
+            "
+          >
+            Sign In
+          </button>
+          <p id="error_para"></p>
+        </form>
+      </div>
+      <div class="overlay-container">
+        <div class="overlay">
+          <div class="welcome overlay-panel overlay-left">
+            <h1 style="margin-top: 8%">Welcome Back!</h1>
+            <p>
+              To keep connected with us please login with your personal info
+            </p>
+            <button
+              style="
+                margin-top: 0;
+                font-weight: 900;
+                color: black;
+                cursor: pointer;
+              "
+              class="ghost"
+              id="signIn"
+            >
+              Sign In
+            </button>
+          </div>
+          <div class="hello overlay-panel overlay-right">
+            <h1>Hello, Friend!</h1>
+            <p>Enter your personal details and start journey with us</p>
+            <button
+              style="
+                margin-top: 25%;
+                font-weight: 900;
+                color: #000;
+                cursor: pointer;
+              "
+              class="ghost"
+              id="signUp"
+            >
+              Sign Up
+            </button>
+          </div>
         </div>
-        <div class="form-container sign-in-container">
-            <form action="../model/login.php" method="POST">
-                <h1>Sign in</h1>
-                <div class="social-container">
-                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-                    <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-                </div>
-                <span style="font-weight: bold;">or use your account</span>
-                <input name="email" id="email" type="email" placeholder="Email"
-                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-                    oninvalid="this.setCustomValidity('email must contain @ and . ')"
-                    oninput="this.setCustomValidity('')" />
-                <input name="password" id="password" type="password" placeholder="Password"
-                    pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"
-                    oninvalid="this.setCustomValidity('password must consist at least 8 characters at least 1 uppercase and 1 lowecase and 1 special cahracter and 1 number')"
-                    oninput="this.setCustomValidity('')" />
-                <a href="#">Forgot your password?</a>
-                <button name="signin" style=" background-color: #5c5d5b; cursor: pointer;border-color: white;">
-                    Sign In
-                </button>
-                <p id="error_para" ></p>
-            </form>
-        </div>
-        <div class="overlay-container">
-            <div class="overlay">
-                <div class="welcome overlay-panel overlay-left">
-                    <h1 style="margin-top: 8%">Welcome Back!</h1>
-                    <p>
-                        To keep connected with us please login with your personal info
-                    </p>
-                    <button style="margin-top: 0;font-weight: 900;color: black;cursor: pointer;" class="ghost"
-                        id="signIn">
-                        Sign In
-                    </button>
-                </div>
-                <div class="hello overlay-panel overlay-right">
-                    <h1>Hello, Friend!</h1>
-                    <p>Enter your personal details and start journey with us</p>
-                    <button style=" margin-top: 25%;font-weight: 900;color: #000;cursor: pointer;" class="ghost"
-                        id="signUp">
-                        Sign Up
-                    </button>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
 
     <div class="g-signin2" data-onsuccess="onSignIn"></div>
@@ -103,6 +188,5 @@
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="./js/login.js"></script>
-</body>
-
+  </body>
 </html>

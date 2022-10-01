@@ -1,0 +1,96 @@
+.body{
+    margin-top: 20px;
+    background: whitesmoke;
+
+}
+
+.main{
+    padding: 15px;
+    font-family: sans-serif;
+}
+.topbar{
+background: #f86f4d;
+overflow: hidden;
+} 
+.edit{
+width: 70px;
+margin-left: 750px;
+margin-top: 10px;}
+
+.topbar a{
+    float: right;
+    color:whitesmoke;
+    text-align: center;
+    padding: 20px 26px;
+    text-decoration: none;
+    font-size: 26px;
+
+}
+#side{
+    background: #333;
+    color: #fff;
+    height: 300vh;
+}
+
+#side a{
+    margin-left: 10px;
+    display: block;
+    color: #fff;
+    padding-bottom: 10px;
+    font-size: 30px;
+    text-decoration: none;
+}
+.card{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.content{
+    background: whitesmoke;
+}
+
+/* profile pic */
+.profile-pic {
+    color: transparent;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+  .profile-pic input {
+    display: none;
+  }
+  .profile-pic img {
+    position: absolute;
+    object-fit: cover;
+    width: 165px;
+    height: 165px;
+    box-shadow: 0 0 10px 0 rgba(255, 255, 255, 0.35);
+    border-radius: 100px;
+    z-index: 0;
+  }
+  .profile-pic .-label {
+    cursor: pointer;
+    height: 165px;
+    width: 165px;
+  }
+  .profile-pic:hover .-label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 10000;
+    color: #fafafa;
+    transition: background-color 0.2s ease-in-out;
+    border-radius: 100px;
+    margin-bottom: 0;
+  }
+  .profile-pic span {
+    display: inline-flex;
+    padding: 0.2em;
+    height: 2em;
+  }
+  

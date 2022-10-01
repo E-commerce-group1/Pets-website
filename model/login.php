@@ -2,52 +2,45 @@
 
 include('database.php');
 // signup form insert and validation
-try {
-    $newUser = new Database();
 
-    if (isset($_POST['signup'])) {
-        $email = $_POST['email'];
-        $firstName = $_POST['firstname'];
-        $lastName = $_POST['lastname'];
-        $pass = $_POST['password'];
-        $mobile = $_POST['mobile'];
-        $address1 = $_POST['address1'];
-        $address2 = $_POST['address2'];
-        $country = $_POST['country'];
-        $city = $_POST['city'];
-        $postal = $_POST['postalcode'];
-        $userRoll = "user";
+$newUser = new Database();
 
-        //set the user rolls 
-        if ($email == 'admin@admin.com') {
-            $userRoll = "admin";
-        }
-        //create the new object 
+if (isset($_POST['signup'])) {
+    $email = $_POST['email'];
+    $firstName = $_POST['firstname'];
+    $lastName = $_POST['lastname'];
+    $pass = $_POST['password'];
+    $mobile = $_POST['mobile'];
+    $address1 = $_POST['address1'];
+    $address2 = $_POST['address2'];
+    $country = $_POST['country'];
+    $city = $_POST['city'];
+    $postal = $_POST['postalcode'];
+    $userRoll = "user";
 
-        //sent the data which is realated to the users table 
-        try {
-            // $testEmail = $newUser->checkEmail($email);
-            if ($newUser->checkEmail($email) == true) {
-                echo "<script> alert('this mail is used') </script>";
-            } else {
-                //insert the new user in the database table 'users'
-                $newUser->insertIntoUserTable($email, $pass, $firstName, $lastName, $mobile, $userRoll);
-
-                //gettign the id of the currenct user to link it with his address 
-                $userID = $newUser->getId($email);
-
-                // insert the new user address data in the address table 
-                $newUser->insertIntoUserAddressTable($userID, $address1, $address2, $city, $postal, $country, $mobile);
-
-
-                // it should be redirect to the user page if here 
-            }
-        } catch (PDOException $e) {
-            echo "Insertion faild : " . $e->getMessage();
-        }
+    //set the user rolls 
+    if ($email == 'admin@admin.com') {
+        $userRoll = "admin";
     }
-} catch (PDOException $error) {
-    echo "faild getting the data : " . $error->getMessage();
+    //create the new object 
+
+    //sent the data which is realated to the users table 
+    // $testEmail = $newUser->checkEmail($email);
+    if ($newUser->checkEmail($email) == true) {
+        echo "<script> alert('this mail is used') </script>";
+    } else {
+        //insert the new user in the database table 'users'
+        $newUser->insertIntoUserTable($email, $pass, $firstName, $lastName, $mobile, $userRoll);
+
+        //gettign the id of the currenct user to link it with his address 
+        $userID = $newUser->getId($email);
+
+        // insert the new user address data in the address table 
+        $newUser->insertIntoUserAddressTable($userID, $address1, $address2, $city, $postal, $country, $mobile);
+
+
+        // it should be redirect to the user page if here 
+    }
 }
 
 try {
@@ -71,7 +64,7 @@ try {
             // exit();
         } else {
             // if the the email and password exist and match the user will be redirect to his profile ;
-            header("Location: http://localhost/pets-website/view/about.html");
+            header("Location: http://localhost/pets-website/profile.php");
         }
     }
 } catch (PDOException $er) {

@@ -52,7 +52,7 @@
     background: #FFF;
     border-radius: 4px;
     margin-bottom: 30px;
-    box-shadow: 0 4px 4px 4px   #f86f4d;
+    box-shadow: 0 2px 2px 2px   #000;
     padding: 20px;
     position: relative;
     transition: background 0.5s;
