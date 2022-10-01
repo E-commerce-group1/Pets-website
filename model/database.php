@@ -1,17 +1,17 @@
 <?php
 class Database
 {
-    private $hostName ="localhost";
-    private $userName='root';
-    private $password='root';
-    private $databaseName='store';
+    private $hostName = "localhost";
+    private $userName = 'root';
+    private $password = 'root';
+    private $databaseName = 'store';
     private $conn;
 
     public function __construct()
     {
-        try{
-        $this->conn = new PDO("mysql:host=" . $this->hostName . ";dbname=" . $this->databaseName, $this->userName, $this->password);
-        }catch (Exception $e){
+        try {
+            $this->conn = new PDO("mysql:host=" . $this->hostName . ";dbname=" . $this->databaseName, $this->userName, $this->password);
+        } catch (Exception $e) {
             echo $e;
         }
     }
@@ -56,8 +56,9 @@ class Database
     }
 
 
-    function addDiscountToProduct(int $productId, int $discountId){
-         /*
+    function addDiscountToProduct(int $productId, int $discountId)
+    {
+        /*
         TODO: check if product_id is correct
         */
         try {
@@ -168,15 +169,56 @@ class Database
         return true;
     }
 
+    // adding new function to test the email if exist in the database 
+    public function checkEmail($mail)
+    {
+        // checking if the email exists or not before signup 
+        $query = "SELECT `email` FROM `users` WHERE `email` = ?";
+        $reslut = $this->conn->prepare($query);
+        $reslut->execute([$mail]);
+
+        if ($reslut->rowCount() > 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getId($mail)
+    {
+        $stmt = $this->conn->query("SELECT id FROM users WHERE email='$mail'");
+        $user = $stmt->fetch();
+        return $user[0];
+    }
+
+    public function checkLoginEmail($email)
+    {
+
+        $stmt = $this->conn->prepare("SELECT email FROM users WHERE email=?");
+        $stmt->execute([$email]);
+        $user = $stmt->fetch();
+        return $user;
+    }
+
+    public function checkPasswordToEmail($email, $password)
+    {
+        $sql = $this->conn->prepare("SELECT password FROM users WHERE email=?");
+        $sql->execute([$email]);
+        $pass = $sql->fetch();
+        if($pass[0] != $password){
+            return false ;
+        }else {
+            return true ;
+        }
+    }
 }
 
-
- // test case
+// test case
 $c = new Database();
 
 // $c->insertIntoUserTable("ahmad.96@gmail.com","123456","ahmad","alawneh","0787293944","admin"); // Done
- $c->insertIntoUserTable("ahmad.96@gmail.com","123456","rama","jaradat","0787293944","admin"); // Done
-$c->insertIntoUserAddressTable(3,"amman","azzarqa","abc","00962","alrusifya","0787293944"); // Done
+// $c->insertIntoUserTable("ahmad.96@gmail.com", "123456", "rama", "jaradat", "0787293944", "admin"); // Done
+// $c->insertIntoUserAddressTable(3, "amman", "azzarqa", "abc", "00962", "alrusifya", "0787293944"); // Done
 
 // print_r($c->showData("users")); // Done
 // print_r($c->getById(1,"users")); //Done
