@@ -256,7 +256,7 @@ class Database
 
     }
 
-}
+
 
     // adding new function to test the email if exist in the database 
     public function checkEmail($mail)
