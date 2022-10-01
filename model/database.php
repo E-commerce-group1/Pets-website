@@ -120,13 +120,13 @@ class Database
     }
 
 
-    public function insertIntoCartItemsTable(int $userId, int $productId, string $quantity)
+    public function insertIntoCartItemsTable(int $userId, int $productId, int $quantity)
     {
         /*
         TODO: check if user_id is correct
         */
         try {
-            $sql = "INSERT INTO order_items (int user_id, int product_id, int quantity)
+            $sql = "INSERT INTO cart_item (user_id, product_id, quantity)
         VALUES ($userId, $productId, $quantity)";
             $this->conn->exec($sql);
             return true;
@@ -168,6 +168,95 @@ class Database
         $q->execute(array(':id' => $id));
         return true;
     }
+
+
+
+    // by cat
+
+    function getProductByCategory($category)
+    {
+        try {
+            $sql = "SELECT * FROM `product` WHERE category='$category'";
+            $q = $this->conn->prepare($sql);
+            $q->execute();
+            $data = $q->fetch(PDO::FETCH_ASSOC);
+            return $data;
+        } catch (Exception $e) {
+            echo $e;
+        }
+    }
+
+    // by price 
+    function getProductByGreaterPrice($price)
+    {
+        try {
+            $sql = "SELECT * FROM `product` WHERE price >$price";
+            $q = $this->conn->prepare($sql);
+            $q->execute();
+            $data = $q->fetch(PDO::FETCH_ASSOC);
+            return $data;
+        } catch (Exception $e) {
+            echo $e;
+        }
+    }
+
+    function getProductByLessPrice($price)
+    {
+        try {
+            $sql = "SELECT * FROM `product` WHERE price < $price";
+            $q = $this->conn->prepare($sql);
+            $q->execute();
+            $data = $q->fetch(PDO::FETCH_ASSOC);
+            return $data;
+        } catch (Exception $e) {
+            echo $e;
+        }
+    }
+
+    function getProductByBetweenPrice($priceOne, $priceTwo)
+    {
+        try {
+            $sql = "SELECT * FROM `product` WHERE price BETWEEN $priceOne AND $priceTwo";
+            $q = $this->conn->prepare($sql);
+            $q->execute();
+            $data = $q->fetch(PDO::FETCH_ASSOC);
+            return $data;
+        } catch (Exception $e) {
+            echo $e;
+        }
+    }
+
+
+
+    function getUserOrders(int $userId)
+    {
+        try {
+            $sql = "SELECT * FROM `order_items` INNER JOIN users ON users.id = $userId";
+            $q = $this->conn->prepare($sql);
+            $q->execute();
+            $data = $q->fetch(PDO::FETCH_ASSOC);
+            return $data;
+        } catch (Exception $e) {
+            echo $e;
+        }
+
+    } 
+    
+    function getUserCartItems(int $userId)
+    {
+        try {
+            $sql = "SELECT * FROM `order_items` INNER JOIN users ON users.id = $userId";
+            $q = $this->conn->prepare($sql);
+            $q->execute();
+            $data = $q->fetch(PDO::FETCH_ASSOC);
+            return $data;
+        } catch (Exception $e) {
+            echo $e;
+        }
+
+    }
+
+}
 
     // adding new function to test the email if exist in the database 
     public function checkEmail($mail)
@@ -213,10 +302,14 @@ class Database
     }
 }
 
-// test case
-$c = new Database();
 
+
+
+// test case
+// $c = new Database();
+// echo "<pre>";
 // $c->insertIntoUserTable("ahmad.96@gmail.com","123456","ahmad","alawneh","0787293944","admin"); // Done
+
 // $c->insertIntoUserTable("ahmad.96@gmail.com", "123456", "rama", "jaradat", "0787293944", "admin"); // Done
 // $c->insertIntoUserAddressTable(3, "amman", "azzarqa", "abc", "00962", "alrusifya", "0787293944"); // Done
 
@@ -224,3 +317,8 @@ $c = new Database();
 // print_r($c->getById(1,"users")); //Done
 // print_r($c->deleteData(1,"users")); //Done, error foreign key we need to find some way to automatic delete from child table 
                                        // fix this by define the Foreign Key constraints as ON DELETE CASCADE
+// print_r($c->getProductByCategory("cats")); //Done
+//  print_r($c->getUserOrders(2)); //Done
+
+
+// echo "</pre>";
