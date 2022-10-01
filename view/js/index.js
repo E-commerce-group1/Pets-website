@@ -83,7 +83,7 @@ function generateProduct(product){
     cardFooter.className = 'card-footer d-flex justify-content-between bg-light border';
     divContainer.append(cardFooter);
 
-    let viewDetailsLink = document.createElement('a');
+    let viewDetailsLink = document.createElement('button');
     viewDetailsLink.className = 'btn btn-sm text-dark p-0';
     viewDetailsLink.textContent = 'View Details';
     cardFooter.append(viewDetailsLink);
@@ -92,43 +92,32 @@ function generateProduct(product){
     viewDetailsIcon.className = 'fas fa-eye text-warning mr-1';
     viewDetailsLink.append(viewDetailsIcon);
 
-    let viewCartLink = document.createElement('a');
+    let viewCartLink = document.createElement('button');
     viewCartLink.className = 'btn btn-sm text-dark p-0';
     viewCartLink.textContent = 'Add to cart';
+    viewCartLink.setAttribute('onclick','addToCart('+product.id+')')
+    // viewCartLink.href = '?id='+product.id
     cardFooter.append(viewCartLink);
 
     let cartDetailsIcon = document.createElement('i');
     cartDetailsIcon.className = 'fas fa-shopping-cart text-warning mr-1';
     viewCartLink.append(cartDetailsIcon);
-
-
-
 }
 
-
-// addToCart.addEventListener("load", function (e) {
-//     e.preventDefault();
-//     //TODO: get user id 
-//     let userId = 2;
-
-//     //TODO: get product id 
-//     let productId=1;
-    
-//     //TODO: check if there is the same item in card and increment the quantity   
-//     let quantity = 2;
-    
-//     fetch("http://localhost/Pets-website/controller/cart.php", {
-//         method: "POST",
-//         headers: {
-//             "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-//         },
-//         body: `user_id=${userId}&product_id=${productId}&quantity=${quantity}`,
-//     })
-//         .then((response) => response.text())
-//         .then((res) => {
-
-//             console.log(res);
-
-//         })
-// })
-
+//TODO: check if user logged in 
+function addToCart(id) {
+    console.log(id);
+    let userId=3;
+    let quantity=1;
+    fetch("http://localhost/Pets-website/controller/cart.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        },body: `user_id=${userId}&product_id=${id}&quantity=${quantity}`,
+    })
+        .then((response) => response.text())
+        .then((res) => {
+            //TODO: handle add to cart event 
+            console.log(res);
+        })
+}
