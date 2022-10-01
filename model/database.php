@@ -159,6 +159,16 @@ class Database
         return $data;
     }
 
+    public function getByTable(string $table)
+    {
+
+        $sql = "SELECT * FROM $table";
+        $q = $this->conn->prepare($sql);
+        $q->execute();
+        $data = $q->fetchAll(PDO::FETCH_ASSOC);
+        return $data;
+    }
+
 
     public function deleteData(int $id, $table)
     {
