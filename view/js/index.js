@@ -50,7 +50,7 @@ function generateProduct(product){
     let imageHeader = document.createElement('img');
     imageHeader.className='img-fluid w-100';
     // TODO: add image to product
-    imageHeader.src = 'https://images.pexels.com/photos/8499873/pexels-photo-8499873.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1260&amp;h=750&amp;dpr=1';
+    imageHeader.src = product.image;
     cardHeader.append(imageHeader);
 
     let cardBody = document.createElement('div');
