@@ -12,4 +12,3 @@ function GetURLParameter(sParam)
     }
 }
 
-console.log(GetURLParameter('id'));

@@ -120,13 +120,13 @@ class Database
     }
 
 
-    public function insertIntoCartItemsTable(int $userId, int $productId, string $quantity)
+    public function insertIntoCartItemsTable(int $userId, int $productId, int $quantity)
     {
         /*
         TODO: check if user_id is correct
         */
         try {
-            $sql = "INSERT INTO order_items (int user_id, int product_id, int quantity)
+            $sql = "INSERT INTO cart_item (user_id, product_id, quantity)
         VALUES ($userId, $productId, $quantity)";
             $this->conn->exec($sql);
             return true;
@@ -258,8 +258,8 @@ class Database
 }
 
 // test case
-$c = new Database();
-echo "<pre>";
+// $c = new Database();
+// echo "<pre>";
 // $c->insertIntoUserTable("ahmad.96@gmail.com","123456","ahmad","alawneh","0787293944","admin"); // Done
 // $c->insertIntoUserTable("ahmad.96@gmail.com","123456","rama","jaradat","0787293944","admin"); // Done
 // $c->insertIntoUserAddressTable(3,"amman","azzarqa","abc","00962","alrusifya","0787293944"); // Done
@@ -269,7 +269,7 @@ echo "<pre>";
 // print_r($c->deleteData(1,"users")); //Done, error foreign key we need to find some way to automatic delete from child table 
                                        // fix this by define the Foreign Key constraints as ON DELETE CASCADE
 // print_r($c->getProductByCategory("cats")); //Done
- print_r($c->getUserOrders(2)); //Done
+//  print_r($c->getUserOrders(2)); //Done
 
 
-echo "</pre>";
+// echo "</pre>";
