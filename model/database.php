@@ -149,13 +149,17 @@ class Database
     }
 
 
+
+
+
+
     public function getById(int $id, $table)
     {
 
         $sql = "SELECT * FROM $table WHERE id = :id";
         $q = $this->conn->prepare($sql);
         $q->execute(array(':id' => $id));
-        $data = $q->fetch(PDO::FETCH_ASSOC);
+        $data = $q->fetchAll(PDO::FETCH_ASSOC);
         return $data;
     }
 
@@ -249,21 +253,19 @@ class Database
         } catch (Exception $e) {
             echo $e;
         }
+    }
 
-    } 
-    
     function getUserCartItems(int $userId)
     {
         try {
-            $sql = "SELECT * FROM `order_items` INNER JOIN users ON users.id = $userId";
+            $sql = "SELECT `product_id` FROM `cart_item` INNER JOIN users ON  cart_item.user_id= $userId";
             $q = $this->conn->prepare($sql);
             $q->execute();
-            $data = $q->fetch(PDO::FETCH_ASSOC);
+            $data = $q->fetchAll(PDO::FETCH_ASSOC);
             return $data;
         } catch (Exception $e) {
             echo $e;
         }
-
     }
 
 
@@ -304,10 +306,10 @@ class Database
         $sql = $this->conn->prepare("SELECT password FROM users WHERE email=?");
         $sql->execute([$email]);
         $pass = $sql->fetch();
-        if($pass[0] != $password){
-            return false ;
-        }else {
-            return true ;
+        if ($pass[0] != $password) {
+            return false;
+        } else {
+            return true;
         }
     }
 }

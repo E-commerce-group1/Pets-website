@@ -1,3 +1,16 @@
+<?php
+require('../Pets-website/model/login.php');
+
+if (isset($_POST['signin'])) {
+  $testEmail = $_POST['email'];
+
+  echo $testEmail;
+}
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -47,7 +60,7 @@
         </div>
         <div class="col-md-8 mt-1">
           <div class="card mb-3 content">
-            <a href="./editprofile.php"><button href="/editprofile.php class=" btn btn-warning edit">Edit</button></a>
+            <a href="./editprofile.php?id="><button href="#" class="btn btn-warning edit">Edit</button></a>
             <h1 class="m-3 pt-3">About</h1>
             <div class="card-body">
               <div class="row">

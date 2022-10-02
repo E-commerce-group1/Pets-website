@@ -1,67 +1,48 @@
 <?php
 
-require('config.php');
-
+include 'config.php';
 session_start();
 
-$user_id = $_SESSION['user_id'];
 
-if (!isset($user_id)) {
-  header('location:login.php');
-};
+$id = $_GET["id"];
 
-if (isset($_POST['update'])) {
+//    echo $id;
 
-  $name = $_POST['name'];
-  $name = filter_var($name);
-  $email = $_POST['email'];
-  $email = filter_var($email);
+$sql = "SELECT * FROM users WHERE id =$id";
 
-  $update_profile = $conn->prepare("UPDATE `users` SET name = ?, email = ? WHERE id = ?");
-  $update_profile->execute([$name, $email, $user_id]);
+$getData = $conn->query($sql);
 
-  $old_image = $_POST['old_image'];
-  $image = $_FILES['image']['name'];
-  $image_tmp_name = $_FILES['image']['tmp_name'];
-  $image_size = $_FILES['image']['size'];
-  $image_folder = 'uploaded_img/' . $image;
+$all = $getData->fetchAll(PDO::FETCH_OBJ);
 
-  if (!empty($image)) {
+print_r($all);
 
-    if ($image_size > 2000000) {
-      $message[] = 'image size is too large';
-    } else {
-      $update_image = $conn->prepare("UPDATE `users` SET image = ? WHERE id = ?");
-      $update_image->execute([$image, $user_id]);
 
-      if ($update_image) {
-        move_uploaded_file($image_tmp_name, $image_folder);
-        unlink('uploaded_img/' . $old_image);
-        $message[] = 'image has been updated!';
-      }
-    }
-  }
 
-  $old_pass = $_POST['old_pass'];
-  $previous_pass = md5($_POST['previous_pass']);
-  $previous_pass = filter_var($previous_pass);
-  $new_pass = md5($_POST['new_pass']);
-  $new_pass = filter_var($new_pass);
-  $confirm_pass = md5($_POST['confirm_pass']);
-  $confirm_pass = filter_var($confirm_pass);
 
-  if (!empty($previous_pass) || !empty($new_pass) || !empty($confirm_pass)) {
-    if ($previous_pass != $old_pass) {
-      $message[] = 'old password not matched!';
-    } elseif ($new_pass != $confirm_pass) {
-      $message[] = 'confirm password not matched!';
-    } else {
-      $update_password = $conn->prepare("UPDATE `users` SET password = ? WHERE id = ?");
-      $update_password->execute([$confirm_pass, $user_id]);
-      $message[] = 'password has been updated!';
-    }
+
+
+
+
+$old_pass = $_POST['old_pass'];
+$previous_pass = md5($_POST['previous_pass']);
+$previous_pass = filter_var($previous_pass);
+$new_pass = md5($_POST['new_pass']);
+$new_pass = filter_var($new_pass);
+$confirm_pass = md5($_POST['confirm_pass']);
+$confirm_pass = filter_var($confirm_pass);
+
+if (!empty($previous_pass) || !empty($new_pass) || !empty($confirm_pass)) {
+  if ($previous_pass != $old_pass) {
+    $message[] = 'old password not matched!';
+  } elseif ($new_pass != $confirm_pass) {
+    $message[] = 'confirm password not matched!';
+  } else {
+    $update_password = $conn->prepare("UPDATE `users` SET password = ? WHERE id = ?");
+    $update_password->execute([$confirm_pass, $user_id]);
+    $message[] = 'password has been updated!';
   }
 }
+
 
 ?>
 
@@ -85,18 +66,7 @@ if (isset($_POST['update'])) {
 
 <body>
 
-  <?php
-  if (isset($message)) {
-    foreach ($message as $message) {
-      echo '
-         <div class="message">
-            <span>' . $message . '</span>
-            <i class="fas fa-times" onclick="this.parentElement.remove();"></i>
-         </div>
-         ';
-    }
-  }
-  ?>
+
 
   <h1 class="title"> update <span>user</span> profile </h1>
 
@@ -105,22 +75,20 @@ if (isset($_POST['update'])) {
     <?php
     $select_profile = $conn->prepare("SELECT * FROM `users` WHERE id = ?");
     $select_profile->execute([$user_id]);
+    print_r($user_id);
     $fetch_profile = $select_profile->fetch(PDO::FETCH_ASSOC);
     ?>
 
     <form action="" method="post" enctype="multipart/form-data">
-      <img src="uploaded_img/<?= $fetch_profile['image']; ?>" alt="">
       <div class="flex">
         <div class="inputBox">
-          <span>username : </span>
-          <input type="text" name="name" required class="box" placeholder="enter your name" value="<?= $fetch_profile['name']; ?>">
+          <span>firstname : </span>
+          <input type="text" name="first_name" required class="box" placeholder="enter your firstname" value="<?= $fetch_profile['first_name']; ?>">
+          <span>lastname : </span>
+          <input type="text" name="last_name" required class="box" placeholder="enter your lastname" value="<?= $fetch_profile['last_name']; ?>">
           <span>email : </span>
           <input type="email" name="email" required class="box" placeholder="enter your email" value="<?= $fetch_profile['email']; ?>">
-          <span>profile pic : </span>
-          <input type="hidden" name="old_image" value="<?= $fetch_profile['image']; ?>">
-          <input type="file" name="image" class="box" accept="image/jpg, image/jpeg, image/png">
-          <span>Mobile :</span>
-          <input type="number" class="box" name="mobile" placeholder="Mobile">
+
         </div>
         <div class="inputBox">
           <input type="hidden" name="old_pass" value="<?= $fetch_profile['password']; ?>">
@@ -130,8 +98,6 @@ if (isset($_POST['update'])) {
           <input type="password" class="box" name="new_pass" placeholder="enter new password">
           <span>confirm password :</span>
           <input type="password" class="box" name="confirm_pass" placeholder="confirm new password">
-          <span>Address :</span>
-          <input type="text" class="box" name="address" placeholder="Address">
 
         </div>
       </div>
@@ -146,3 +112,38 @@ if (isset($_POST['update'])) {
 </body>
 
 </html>
+<?php
+
+
+if (isset($_POST["update"])) {
+  $first_name = $_POST["first_name"];
+  $last_name = $_POST["last_name"];
+  $email = $_POST["email"];
+  $old_pass = $_POST['old_pass'];
+  $previous_pass = md5($_POST['previous_pass']);
+  $previous_pass = filter_var($previous_pass);
+  $new_pass = md5($_POST['new_pass']);
+  $new_pass = filter_var($new_pass);
+  $confirm_pass = md5($_POST['confirm_pass']);
+  $confirm_pass = filter_var($confirm_pass);
+
+
+  $sql = "UPDATE users SET first_name=:first_name,last_name=:last_name email=:email `password`=:`password` WHERE id=$id";
+
+
+  $query = $db->prepare($sql);
+
+  $query->bindParam(':first_name', $first_name, PDO::PARAM_STR);
+  $query->bindParam(':last_name', $last_name, PDO::PARAM_STR);
+
+  $query->bindParam(':email', $email, PDO::PARAM_STR);
+  $query->bindParam(':password', $password, PDO::PARAM_STR);
+
+
+  $result = $query->execute();
+
+  header("location: index.php");
+}
+
+
+?>
